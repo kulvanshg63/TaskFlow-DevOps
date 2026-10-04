@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <h2>TaskFlow</h2>
+        <span>DevOps Task Management System</span>
+    </nav>
+
+    <main>
+
+        <section class="hero">
+            <h1>Manage Your Tasks</h1>
+            <p>Create, track and complete your tasks easily.</p>
+
+            <button onclick="showMessage()">
+                Get Started
+            </button>
+        </section>
+
+        <section class="features">
+
+            <div class="card">
+                <h3>➕ Create Tasks</h3>
+                <p>Add new tasks that need to be completed.</p>
+            </div>
+
+            <div class="card">
+                <h3>📋 Track Tasks</h3>
+                <p>Keep track of your pending work.</p>
+            </div>
+
+            <div class="card">
+                <h3>✅ Complete Tasks</h3>
+                <p>Mark tasks as completed when finished.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>TaskFlow | DevOps & Automation Capstone Project</p>
+    </footer>
+
+    <script>
+        function showMessage() {
+            alert("TaskFlow is ready!");
+        }
+    </script>
+
+</body>
+</html>
