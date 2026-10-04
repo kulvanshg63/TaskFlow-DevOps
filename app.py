@@ -35,6 +35,38 @@ def add_task():
     connection.close()
 
     return redirect(url_for("home"))
+@app.route("/edit/<int:task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
+
+    connection = get_db_connection()
+
+    task = connection.execute(
+        "SELECT * FROM tasks WHERE id = ?",
+        (task_id,)
+    ).fetchone()
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        description = request.form["description"]
+
+        connection.execute(
+            """
+            UPDATE tasks
+            SET title = ?, description = ?
+            WHERE id = ?
+            """,
+            (title, description, task_id)
+        )
+
+        connection.commit()
+        connection.close()
+
+        return redirect(url_for("home"))
+
+    connection.close()
+
+    return render_template("edit.html", task=task)
 
 
 @app.route("/complete/<int:task_id>")
@@ -69,3 +101,4 @@ def delete_task(task_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+

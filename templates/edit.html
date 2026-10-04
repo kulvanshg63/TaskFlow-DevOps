@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Task - TaskFlow</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>TaskFlow</h2>
+
+    <span>Edit Task</span>
+
+</nav>
+
+
+<main>
+
+    <section class="task-form">
+
+        <h2>Edit Task</h2>
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="title"
+                value="{{ task['title'] }}"
+                required
+            >
+
+            <textarea
+                name="description"
+            >{{ task['description'] }}</textarea>
+
+            <button type="submit">
+                Update Task
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+
+</body>
+
+</html>
