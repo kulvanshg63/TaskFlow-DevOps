@@ -1,6 +1,6 @@
 # TaskFlow
 
-TaskFlow is a complete DevOps automation capstone project.
+TaskFlow is an automated DevOps and task management capstone project.
 
 ## Project Overview
 
