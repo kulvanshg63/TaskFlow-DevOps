@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,56 +10,126 @@
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
 <body>
 
-    <nav>
-        <h2>TaskFlow</h2>
-        <span>DevOps Task Management System</span>
-    </nav>
+<nav>
 
-    <main>
+    <h2>TaskFlow</h2>
 
-        <section class="hero">
-            <h1>Manage Your Tasks</h1>
-            <p>Create, track and complete your tasks easily.</p>
+    <span>DevOps Task Management System</span>
 
-            <button onclick="showMessage()">
-                Get Started
+</nav>
+
+
+<main>
+
+    <section class="hero">
+
+        <h1>Task Management</h1>
+
+        <p>
+            Create and manage your tasks easily.
+        </p>
+
+    </section>
+
+
+    <!-- ADD TASK -->
+
+    <section class="task-form">
+
+        <h2>Add New Task</h2>
+
+        <form action="/add" method="POST">
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Task title"
+                required
+            >
+
+            <textarea
+                name="description"
+                placeholder="Task description"
+            ></textarea>
+
+            <button type="submit">
+                Add Task
             </button>
-        </section>
 
-        <section class="features">
+        </form>
 
-            <div class="card">
-                <h3>➕ Create Tasks</h3>
-                <p>Add new tasks that need to be completed.</p>
-            </div>
+    </section>
 
-            <div class="card">
-                <h3>📋 Track Tasks</h3>
-                <p>Keep track of your pending work.</p>
-            </div>
 
-            <div class="card">
-                <h3>✅ Complete Tasks</h3>
-                <p>Mark tasks as completed when finished.</p>
-            </div>
+    <!-- TASK LIST -->
 
-        </section>
+    <section class="task-list">
 
-    </main>
+        <h2>Your Tasks</h2>
 
-    <footer>
-        <p>TaskFlow | DevOps & Automation Capstone Project</p>
-    </footer>
+        {% if tasks %}
 
-    <script>
-        function showMessage() {
-            alert("TaskFlow is ready!");
-        }
-    </script>
+            {% for task in tasks %}
+
+                <div class="task-card">
+
+                    <h3>{{ task["title"] }}</h3>
+
+                    <p>{{ task["description"] }}</p>
+                    {% if task["completed"] == 1 %}
+
+                        <span class="completed">
+                            Completed
+                        </span>
+
+                        {% else %}
+
+                            <span class="pending">
+                                Pending
+                            </span>
+
+                            <a href="/complete/{{ task['id'] }}" class="action-button">
+                                Mark Complete
+                            </a>
+
+                        {% endif %}
+
+                        <a href="/delete/{{ task['id'] }}"
+                        class="delete-button"
+                        onclick="return confirm('Are you sure you want to delete this task?')">
+                            Delete
+                        </a>
+
+
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No tasks available.</p>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        TaskFlow | DevOps & Automation Capstone Project
+    </p>
+
+</footer>
 
 </body>
+
 </html>

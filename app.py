@@ -1,13 +1,71 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+from database import initialize_database, get_db_connection
 
 app = Flask(__name__)
+
+initialize_database()
 
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    connection = get_db_connection()
+
+    tasks = connection.execute(
+        "SELECT * FROM tasks"
+    ).fetchall()
+
+    connection.close()
+
+    return render_template("index.html", tasks=tasks)
+
+
+@app.route("/add", methods=["POST"])
+def add_task():
+    title = request.form["title"]
+    description = request.form["description"]
+
+    connection = get_db_connection()
+
+    connection.execute(
+        "INSERT INTO tasks (title, description) VALUES (?, ?)",
+        (title, description)
+    )
+
+    connection.commit()
+    connection.close()
+
+    return redirect(url_for("home"))
+
+
+@app.route("/complete/<int:task_id>")
+def complete_task(task_id):
+    connection = get_db_connection()
+
+    connection.execute(
+        "UPDATE tasks SET completed = 1 WHERE id = ?",
+        (task_id,)
+    )
+
+    connection.commit()
+    connection.close()
+
+    return redirect(url_for("home"))
+
+
+@app.route("/delete/<int:task_id>")
+def delete_task(task_id):
+    connection = get_db_connection()
+
+    connection.execute(
+        "DELETE FROM tasks WHERE id = ?",
+        (task_id,)
+    )
+
+    connection.commit()
+    connection.close()
+
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
