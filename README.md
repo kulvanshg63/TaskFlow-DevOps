@@ -82,14 +82,16 @@ Merge conflict resolution is also demonstrated in the project history.
 - Branch merging ✅
 - Merge conflict resolution ✅
 - Commit history ✅
+### Continuous Integration
 
-### Phase 2 - Continuous Integration
+TaskFlow uses Jenkins for Continuous Integration.
 
-- Jenkins setup ⏳
-- Automated build ⏳
-- Automated testing ⏳
-- Automated packaging ⏳
-- GitHub push trigger ⏳
+The Jenkins pipeline automatically:
+
+1. Checks out the source code.
+2. Installs project dependencies.
+3. Runs automated tests using pytest.
+4. Packages the application.
 
 ## Future Scope
 
